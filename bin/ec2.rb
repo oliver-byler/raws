@@ -21,6 +21,12 @@ module Raws
                    :aliases => '-r', 
                    :desc => 'Override default region in credentials config.')
 
+    method_option( :credential_set, 
+                   :type => :string,
+                   :required => false, 
+                   :aliases => '-c', 
+                   :desc => 'Override default credential set with another in the config.')
+
     def list
       configuration = "#{ROOT}/.raws/credentials.json"
 
@@ -46,6 +52,10 @@ module Raws
       amazon[:secret_access_key] = json_data['demo']['aws_secret_access_key']
       amazon[:access_key_id] = json_data['demo']['aws_access_key']
       amazon[:region] = json_data['demo']['region']
+
+      amazon[:secret_access_key] = json_data[options[:credential_set]]['aws_secret_access_key'] if options[:credential_set]
+      amazon[:access_key_id] = json_data[options[:credential_set]]['aws_access_key'] if options[:credential_set]
+      amazon[:region] = json_data[options[:credential_set]]['region'] if options[:credential_set]
 
       amazon[:region] = options[:region] if options[:region]
 
