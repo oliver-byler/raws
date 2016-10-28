@@ -3,7 +3,7 @@ require "#{lib}/raws/config/version"
 
 Gem::Specification.new do |s|
   s.name = %q{raws}
-  s.homepage = %q{https://github.com/obyler/example_aws_ruby}
+  s.homepage = %q{https://github.com/oliver-byler/raws}
   s.version = Raws::VERSION
   s.summary = %q{This is an example project to demostrate proper structure for building a Ruby CLI tool.}
   s.description = %q{Example AWS Ruby CLI tool}
