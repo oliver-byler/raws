@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'thor'
+require 'aws-sdk-v1'
+require 'json'
+require 'logging'
+
+require File.expand_path("#{File.dirname(__FILE__)}/../lib/raws.rb")
+require File.expand_path("#{File.dirname(__FILE__)}/ec2")
+
+module Raws
+  class CLI < Thor
+    package_name 'raws'
+
+    register Ec2, :ec2, "ec2", "Interact with the EC2 AWS API"
+  end
+end
+
+Raws::CLI.start
