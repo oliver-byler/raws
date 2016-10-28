@@ -75,3 +75,5 @@ The list subcommand can be called with the following options:
 
 `--region` - accepts a string of a valid AWS region ( us-west-2 )
 
+`--credential_set` - accepts a string of a valid set of AWS credentials ( demo )
+
