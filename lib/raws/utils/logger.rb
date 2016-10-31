@@ -1,3 +1,5 @@
+# Universal logger module with colorized output
+# [2016-10-31T12:18:59] INFO  Raws::Logger: LOG_MESSAGE
 module Raws
   module Logger
     Logging.color_scheme('bright',
@@ -23,6 +25,7 @@ module Raws
     @logger = Logging.logger[self]
     log_file = "#{ROOT}/log/raws.log"
 
+    # Create log dir and file if it does not exist
     unless File.exist?(log_file)
       new_log_path = File.dirname(log_file)
       FileUtils.mkdir_p(new_log_path) unless Dir.exist?(new_log_path)

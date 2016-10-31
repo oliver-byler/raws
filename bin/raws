@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# Root namespace of the application
+# Load additional modules within the bin and lib directories
+
+# Globally load external libraries
 require 'rubygems'
 require 'thor'
 require 'aws-sdk-v1'
@@ -9,12 +13,16 @@ require 'logging'
 require File.expand_path("#{File.dirname(__FILE__)}/../lib/raws.rb")
 require File.expand_path("#{File.dirname(__FILE__)}/ec2")
 
+# Define root module Raws
 module Raws
+  # Initialize CLI Class which contains the root commands of the application
   class CLI < Thor
     package_name 'raws'
 
+    # Define name of root commands
     register Ec2, :ec2, "ec2", "Interact with the EC2 AWS API"
   end
 end
 
+# Instantiate the Raws CLI
 Raws::CLI.start

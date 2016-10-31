@@ -3,6 +3,7 @@ module Raws
     desc 'list', 'List Ec2 instances with optional filtering on Ec2 Tags. 
                   Default is tags: Owner, Attributes: id, instance_type, launch_time'
 
+    # Set additional CLI options for overriding defaults within the ec2 list command
     method_option( :tags, 
                    :type => :string,
                    :required => false, 
@@ -28,6 +29,8 @@ module Raws
                    :desc => 'Override default credential set with another in the config.')
 
     def list
+
+      # Validation credentials config is readable and parsable
       configuration = "#{ROOT}/.raws/credentials.json"
 
       if File.exists?(configuration)
@@ -43,6 +46,7 @@ module Raws
       end
       file.close()
 
+      # Initialize AWS Config credentials
       amazon = {
           :access_key_id => nil,
           :secret_access_key => nil,
@@ -53,6 +57,7 @@ module Raws
       amazon[:access_key_id] = json_data['demo']['aws_access_key']
       amazon[:region] = json_data['demo']['region']
 
+      # Override default credential set if option credential_set is passed in
       amazon[:secret_access_key] = json_data[options[:credential_set]]['aws_secret_access_key'] if options[:credential_set]
       amazon[:access_key_id] = json_data[options[:credential_set]]['aws_access_key'] if options[:credential_set]
       amazon[:region] = json_data[options[:credential_set]]['region'] if options[:credential_set]
@@ -61,6 +66,7 @@ module Raws
 
       AWS.config(amazon)
 
+      # Instantiate List start function and pass in tag and attributes arrays
       Raws::List.new.start(options[:tags], options[:attributes])
     end
   end
